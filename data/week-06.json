@@ -1,37 +1,184 @@
 {
   "term": 3,
   "week": 6,
+  "startDate": "2026-08-18",
   "title": "Victorian Prep / Foundation Home Learning",
+
   "days": {
     "Monday": {
       "subject": "English",
-      "title": "Blend CVC words and practise simple digraphs",
-      "duration": "15-20 min"
+      "title": "Blend and segment words",
+      "duration": "15-20 min",
+      "skillTags": ["phonics", "blending"],
+
+      "activities": [
+        "Sound and blend these words: sat, map, dog, sun and pin.",
+        "Use counters for each sound in cat, sit, mop, run and tap. Push the counters together and say the word.",
+        "Adult says: map, dog, sun, pin and cat. Child stretches each word and writes the sounds they hear."
+      ],
+
+      "challenges": [
+        "Read these words without counters: stop, frog, clap.",
+        "Choose one word and write a short sentence using it."
+      ]
     },
+
     "Tuesday": {
       "subject": "Mathematics",
       "title": "Addition and subtraction within 10",
-      "duration": "15-20 min"
+      "duration": "15-20 min",
+      "skillTags": ["addition", "subtraction"],
+
+      "activities": [
+        "Use counters to solve: 3 + 2, 4 + 3, 7 - 2 and 8 - 3.",
+        "Use toy cars to solve: 5 + 2, 6 - 2, 4 + 4 and 9 - 3.",
+        "Draw dots to solve: 2 + 5, 8 - 4, 3 + 3 and 7 - 3."
+      ],
+
+      "challenges": [
+        "Mia has 4 blocks and gets 3 more. How many blocks does she have?",
+        "There are 9 birds. 4 fly away. How many birds remain?"
+      ]
     },
+
     "Wednesday": {
       "subject": "English",
-      "title": "Read and write a short sentence",
-      "duration": "15-20 min"
+      "title": "Read and write a sentence",
+      "duration": "15-20 min",
+      "skillTags": ["reading", "sentence-writing"],
+
+      "activities": [
+        "Read: The dog can sit on the mat. Then write a new sentence about a cat.",
+        "Put these words in order: cat / the / sat / mat / on / the.",
+        "Look at a favourite toy and write one sentence about it. Check capital letter, spaces and full stop."
+      ],
+
+      "challenges": [
+        "Write two sentences about the same picture.",
+        "Add a describing word to your sentence."
+      ]
     },
+
     "Thursday": {
       "subject": "Mathematics",
-      "title": "Number bonds and missing numbers",
-      "duration": "15-20 min"
+      "title": "Repeating patterns",
+      "duration": "15-20 min",
+      "skillTags": ["patterns", "reasoning"],
+
+      "activities": [
+        "Continue: red, blue, red, blue, red, __, __.",
+        "Continue: star, star, triangle, star, star, triangle, __, __, __.",
+        "Use Lego or household objects to create an ABC repeating pattern."
+      ],
+
+      "challenges": [
+        "Create your own repeating pattern and explain which part repeats.",
+        "Find the mistake: red, blue, red, blue, blue, red, blue. Fix the pattern."
+      ]
     },
+
     "Friday": {
       "subject": "Science",
-      "title": "Observe, compare and describe everyday materials",
-      "duration": "15-20 min"
+      "title": "Material detectives",
+      "duration": "15-20 min",
+      "skillTags": ["science", "materials"],
+
+      "activities": [
+        "Find a plastic, metal and paper object. Describe each as smooth, rough, hard, soft, bendy or stiff.",
+        "Choose three household objects and group them by what material they are made from.",
+        "Compare a spoon and a paper towel. How are their materials different?"
+      ],
+
+      "challenges": [
+        "Why would paper be a poor material for making a drinking cup?",
+        "Choose the best material for a raincoat and explain why."
+      ]
     },
+
     "Saturday": {
       "subject": "Review",
       "title": "Week 6 learning check",
-      "duration": "15-20 min"
+      "duration": "15-20 min",
+      "skillTags": ["weekly-review"]
     }
+  },
+
+  "quizBank": {
+    "phonics": [
+      {
+        "question": "Blend: s - u - n",
+        "answer": "sun"
+      },
+      {
+        "question": "Blend: m - a - p",
+        "answer": "map"
+      },
+      {
+        "question": "Blend: d - o - g",
+        "answer": "dog"
+      }
+    ],
+
+    "reading": [
+      {
+        "question": "How many words are in: The cat can sit.",
+        "answer": "4"
+      }
+    ],
+
+    "sentence-writing": [
+      {
+        "question": "Which mark goes at the end of: The dog can run",
+        "answer": "."
+      }
+    ],
+
+    "addition": [
+      {
+        "question": "3 + 2 =",
+        "answer": "5"
+      },
+      {
+        "question": "4 + 3 =",
+        "answer": "7"
+      },
+      {
+        "question": "5 + 2 =",
+        "answer": "7"
+      }
+    ],
+
+    "subtraction": [
+      {
+        "question": "7 - 2 =",
+        "answer": "5"
+      },
+      {
+        "question": "8 - 3 =",
+        "answer": "5"
+      },
+      {
+        "question": "9 - 4 =",
+        "answer": "5"
+      }
+    ],
+
+    "patterns": [
+      {
+        "question": "What comes next: red, blue, red, blue, ___",
+        "answer": "red"
+      },
+      {
+        "question": "What comes next: star, star, triangle, star, star, triangle, ___",
+        "answer": "star"
+      }
+    ],
+
+    "materials": [
+      {
+        "question": "Is a metal spoon usually hard or soft?",
+        "answer": "hard"
+      }
+    ]
   }
 }
