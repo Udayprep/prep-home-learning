@@ -9,16 +9,19 @@
       "subject": "English",
       "title": "Blend and segment words",
       "duration": "15-20 min",
-      "skillTags": ["phonics", "blending"],
+      "skillTags": [
+        "phonics",
+        "blending"
+      ],
 
       "activities": [
         "Sound and blend these words: sat, map, dog, sun and pin.",
-        "Use counters for each sound in cat, sit, mop, run and tap. Push the counters together and say the word.",
+        "Use counters for each sound in cat, sit, mop, run and tap. Push the counters together and say the whole word.",
         "Adult says: map, dog, sun, pin and cat. Child stretches each word and writes the sounds they hear."
       ],
 
       "challenges": [
-        "Read these words without counters: stop, frog, clap.",
+        "Read these words without counters: stop, frog and clap.",
         "Choose one word and write a short sentence using it."
       ]
     },
@@ -27,35 +30,41 @@
       "subject": "Mathematics",
       "title": "Addition and subtraction within 10",
       "duration": "15-20 min",
-      "skillTags": ["addition", "subtraction"],
+      "skillTags": [
+        "addition",
+        "subtraction"
+      ],
 
       "activities": [
         "Use counters to solve: 3 + 2, 4 + 3, 7 - 2 and 8 - 3.",
-        "Use toy cars to solve: 5 + 2, 6 - 2, 4 + 4 and 9 - 3.",
+        "Use toy cars or Lego to solve: 5 + 2, 6 - 2, 4 + 4 and 9 - 3.",
         "Draw dots to solve: 2 + 5, 8 - 4, 3 + 3 and 7 - 3."
       ],
 
       "challenges": [
-        "Mia has 4 blocks and gets 3 more. How many blocks does she have?",
+        "Mia has 4 blocks and gets 3 more. How many blocks does she have altogether?",
         "There are 9 birds. 4 fly away. How many birds remain?"
       ]
     },
 
     "Wednesday": {
       "subject": "English",
-      "title": "Read and write a sentence",
+      "title": "Read and write a simple sentence",
       "duration": "15-20 min",
-      "skillTags": ["reading", "sentence-writing"],
+      "skillTags": [
+        "reading",
+        "sentence-writing"
+      ],
 
       "activities": [
         "Read: The dog can sit on the mat. Then write a new sentence about a cat.",
-        "Put these words in order: cat / the / sat / mat / on / the.",
-        "Look at a favourite toy and write one sentence about it. Check capital letter, spaces and full stop."
+        "Put these words in the correct order: cat / the / sat / mat / on / the.",
+        "Look at a favourite toy and write one sentence about it. Check for a capital letter, spaces and a full stop."
       ],
 
       "challenges": [
-        "Write two sentences about the same picture.",
-        "Add a describing word to your sentence."
+        "Write two connected sentences about the same picture or toy.",
+        "Add one describing word to your sentence, for example big, red, soft or fast."
       ]
     },
 
@@ -63,17 +72,20 @@
       "subject": "Mathematics",
       "title": "Repeating patterns",
       "duration": "15-20 min",
-      "skillTags": ["patterns", "reasoning"],
+      "skillTags": [
+        "patterns",
+        "reasoning"
+      ],
 
       "activities": [
-        "Continue: red, blue, red, blue, red, __, __.",
-        "Continue: star, star, triangle, star, star, triangle, __, __, __.",
-        "Use Lego or household objects to create an ABC repeating pattern."
+        "Continue this AB pattern: red, blue, red, blue, red, __, __.",
+        "Continue this AAB pattern: star, star, triangle, star, star, triangle, __, __, __.",
+        "Use Lego, blocks, spoons or other household objects to make an ABC repeating pattern."
       ],
 
       "challenges": [
         "Create your own repeating pattern and explain which part repeats.",
-        "Find the mistake: red, blue, red, blue, blue, red, blue. Fix the pattern."
+        "Find and fix the mistake in this pattern: red, blue, red, blue, blue, red, blue."
       ]
     },
 
@@ -81,17 +93,20 @@
       "subject": "Science",
       "title": "Material detectives",
       "duration": "15-20 min",
-      "skillTags": ["science", "materials"],
+      "skillTags": [
+        "science",
+        "materials"
+      ],
 
       "activities": [
-        "Find a plastic, metal and paper object. Describe each as smooth, rough, hard, soft, bendy or stiff.",
-        "Choose three household objects and group them by what material they are made from.",
-        "Compare a spoon and a paper towel. How are their materials different?"
+        "Find one plastic object, one metal object and one paper object. Describe each using words such as smooth, rough, hard, soft, bendy or stiff.",
+        "Choose three safe household objects and group them by the material they are made from.",
+        "Compare a spoon and a paper towel. Talk about how their materials are different."
       ],
 
       "challenges": [
-        "Why would paper be a poor material for making a drinking cup?",
-        "Choose the best material for a raincoat and explain why."
+        "Why would ordinary paper be a poor material for making a drinking cup?",
+        "Choose a useful material for a raincoat and explain why you chose it."
       ]
     },
 
@@ -99,7 +114,9 @@
       "subject": "Review",
       "title": "Week 6 learning check",
       "duration": "15-20 min",
-      "skillTags": ["weekly-review"]
+      "skillTags": [
+        "weekly-review"
+      ]
     }
   },
 
@@ -119,17 +136,36 @@
       }
     ],
 
+    "blending": [
+      {
+        "question": "Blend: p - i - n",
+        "answer": "pin"
+      },
+      {
+        "question": "Blend: c - a - t",
+        "answer": "cat"
+      }
+    ],
+
     "reading": [
       {
         "question": "How many words are in: The cat can sit.",
         "answer": "4"
+      },
+      {
+        "question": "What animal is named in: The dog can run.",
+        "answer": "dog"
       }
     ],
 
     "sentence-writing": [
       {
-        "question": "Which mark goes at the end of: The dog can run",
+        "question": "Which punctuation mark goes at the end of this sentence: The dog can run",
         "answer": "."
+      },
+      {
+        "question": "What should the first letter of a sentence be: capital or lowercase?",
+        "answer": "capital"
       }
     ],
 
@@ -145,6 +181,10 @@
       {
         "question": "5 + 2 =",
         "answer": "7"
+      },
+      {
+        "question": "4 + 4 =",
+        "answer": "8"
       }
     ],
 
@@ -160,6 +200,10 @@
       {
         "question": "9 - 4 =",
         "answer": "5"
+      },
+      {
+        "question": "6 - 2 =",
+        "answer": "4"
       }
     ],
 
@@ -171,6 +215,24 @@
       {
         "question": "What comes next: star, star, triangle, star, star, triangle, ___",
         "answer": "star"
+      },
+      {
+        "question": "What comes next: circle, square, triangle, circle, square, ___",
+        "answer": "triangle"
+      }
+    ],
+
+    "reasoning": [
+      {
+        "question": "In the pattern red, blue, red, blue, what two colours repeat?",
+        "answer": "red and blue"
+      }
+    ],
+
+    "science": [
+      {
+        "question": "Which is usually harder: a metal spoon or a paper towel?",
+        "answer": "metal spoon"
       }
     ],
 
@@ -178,6 +240,14 @@
       {
         "question": "Is a metal spoon usually hard or soft?",
         "answer": "hard"
+      },
+      {
+        "question": "Is a paper towel usually bendy or stiff?",
+        "answer": "bendy"
+      },
+      {
+        "question": "Which material is usually better for a raincoat: paper or waterproof plastic?",
+        "answer": "waterproof plastic"
       }
     ]
   }
