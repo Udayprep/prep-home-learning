@@ -1,0 +1,37 @@
+{
+  "term": 3,
+  "week": 5,
+  "title": "Victorian Prep / Foundation Home Learning",
+  "days": {
+    "Monday": {
+      "subject": "English",
+      "title": "Blend and segment CVC words",
+      "duration": "15-20 min"
+    },
+    "Tuesday": {
+      "subject": "Mathematics",
+      "title": "Addition and subtraction within 10",
+      "duration": "15-20 min"
+    },
+    "Wednesday": {
+      "subject": "English",
+      "title": "Read and build a simple sentence",
+      "duration": "15-20 min"
+    },
+    "Thursday": {
+      "subject": "Mathematics",
+      "title": "Numbers to 20 and story problems",
+      "duration": "15-20 min"
+    },
+    "Friday": {
+      "subject": "Science",
+      "title": "Material detectives",
+      "duration": "15-20 min"
+    },
+    "Saturday": {
+      "subject": "Review",
+      "title": "Weekly learning check",
+      "duration": "15-20 min"
+    }
+  }
+}
