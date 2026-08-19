@@ -1,4 +1,4 @@
-/name: Update Current Learning Week
+name: Update Current Learning Week
 
 on:
   schedule:
