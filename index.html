@@ -1,4 +1,4 @@
-<!doctype html>
+         <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -62,196 +62,798 @@
 </div>
 
 <nav class="tabs"><button class="active" data-view="week">🏠<br>Week</button><button data-view="today">▶<br>Today</button><button data-view="quiz">🧠<br>Quiz</button><button data-view="progress">📈<br>Progress</button><button data-view="files">📄<br>Files</button></nav>
-
 <script>
 let days = [];
 let weekData = null;
 let activityIndex = {};
-
 let quiz = [];
-  ["Blend: s - u - n =", "sun"],
-  ["Write the word dog =", "dog"],
-  ["What number comes after 16?", "17"],
-  ["What number comes before 14?", "13"],
-  ["3 + 2 =", "5"],
-  ["7 - 2 =", "5"],
-  ["4 + 3 =", "7"],
-  ["8 - 3 =", "5"]
-];
 
-let state = JSON.parse(localStorage.getItem("prepT3W5") || "{}");
+let state = JSON.parse(
+  localStorage.getItem("prepT3W5") || "{}"
+);
 
 async function loadWeek() {
   try {
-    const pointerResponse = await fetch("./data/current-week.json");
+    const pointerResponse = await fetch(
+      "./data/current-week.json"
+    );
 
-if (!pointerResponse.ok) {
-  throw new Error("Unable to load current week pointer");
-}
+    if (!pointerResponse.ok) {
+      throw new Error(
+        "Unable to load current week pointer"
+      );
+    }
 
-const pointer = await pointerResponse.json();
+    const pointer =
+      await pointerResponse.json();
 
-const response = await fetch(`./data/${pointer.currentWeekFile}`);
+    const response = await fetch(
+      `./data/${pointer.currentWeekFile}`
+    );
 
     if (!response.ok) {
-      throw new Error("Unable to load weekly data");
+      throw new Error(
+        "Unable to load weekly data"
+      );
     }
 
     const data = await response.json();
 
-    days = Object.entries(data.days).map(([day, item]) => ({
-      day: day,
-      subject: item.subject,
-      title: item.title,
-      duration: item.duration
-    }));
+    weekData = data;
 
-    const weekChip = document.querySelector(".chip");
+    days = Object.entries(data.days).map(
+      ([day, item]) => ({
+        day: day,
+        subject: item.subject,
+        title: item.title,
+        duration: item.duration
+      })
+    );
+
+    const weekChip =
+      document.querySelector(".chip");
 
     if (weekChip) {
-      weekChip.textContent = `Term ${data.term} • Week ${data.week}`;
+      weekChip.textContent =
+        `Term ${data.term} • Week ${data.week}`;
     }
 
     renderWeek();
     updateProgress();
+    renderQuiz();
 
   } catch (error) {
-    console.error("Week data could not be loaded:", error);
+    console.error(
+      "Week data could not be loaded:",
+      error
+    );
 
-    document.getElementById("weekGrid").innerHTML =
-      "<div class='card'><b>Weekly activities could not be loaded.</b><p>Please try refreshing the page.</p></div>";
+    document.getElementById(
+      "weekGrid"
+    ).innerHTML = `
+      <div class="card">
+        <b>Weekly activities could not be loaded.</b>
+        <p>Please refresh the page.</p>
+      </div>
+    `;
   }
 }
 
+
+
 function save() {
-  localStorage.setItem("prepT3W5", JSON.stringify(state));
+  localStorage.setItem(
+    "prepT3W5",
+    JSON.stringify(state)
+  );
+
   renderWeek();
   updateProgress();
+  renderQuiz();
 }
+
+
 
 function setStatus(day, status) {
   state[day] = status;
+
+  if (
+    status === "done" &&
+    weekData &&
+    weekData.days[day] &&
+    state.skillPractice
+  ) {
+    const info = weekData.days[day];
+
+    (info.skillTags || []).forEach(tag => {
+      if (state.skillPractice[tag]) {
+        state.skillPractice[tag] =
+          Math.max(
+            0,
+            state.skillPractice[tag] - 1
+          );
+      }
+    });
+  }
+
   save();
 }
 
+
+
+function setNeedsPractice(day) {
+  if (
+    !weekData ||
+    !weekData.days[day]
+  ) {
+    return;
+  }
+
+  const info =
+    weekData.days[day];
+
+  state[day] = "practice";
+
+  if (!state.skillPractice) {
+    state.skillPractice = {};
+  }
+
+  (info.skillTags || []).forEach(tag => {
+
+    state.skillPractice[tag] =
+      (state.skillPractice[tag] || 0) + 1;
+
+  });
+
+  save();
+}
+
+
+
+function showActivity(day) {
+  if (
+    !weekData ||
+    !weekData.days[day]
+  ) {
+    return;
+  }
+
+  const info =
+    weekData.days[day];
+
+  if (
+    !info.activities ||
+    info.activities.length === 0
+  ) {
+    return;
+  }
+
+  let index =
+    activityIndex[day] || 0;
+
+  const box =
+    document.getElementById(
+      "activity-" + day
+    );
+
+  if (box) {
+    box.innerHTML = `
+      <p>
+        <b>Today's activity:</b>
+      </p>
+
+      <p>
+        ${info.activities[index]}
+      </p>
+    `;
+  }
+}
+
+
+
+function tryAnother(day) {
+  if (
+    !weekData ||
+    !weekData.days[day]
+  ) {
+    return;
+  }
+
+  const activities =
+    weekData.days[day].activities;
+
+  if (
+    !activities ||
+    activities.length === 0
+  ) {
+    return;
+  }
+
+  let current =
+    activityIndex[day] || 0;
+
+  current++;
+
+  if (
+    current >=
+    activities.length
+  ) {
+    current = 0;
+  }
+
+  activityIndex[day] =
+    current;
+
+  showActivity(day);
+}
+
+
+
+function challengeMe(day) {
+  if (
+    !weekData ||
+    !weekData.days[day]
+  ) {
+    return;
+  }
+
+  const challenges =
+    weekData.days[day].challenges;
+
+  if (
+    !challenges ||
+    challenges.length === 0
+  ) {
+    alert(
+      "No challenge activity for this lesson."
+    );
+
+    return;
+  }
+
+  const challenge =
+    challenges[
+      Math.floor(
+        Math.random() *
+        challenges.length
+      )
+    ];
+
+  const box =
+    document.getElementById(
+      "activity-" + day
+    );
+
+  if (box) {
+    box.innerHTML = `
+      <p>
+        <b>⭐ Challenge:</b>
+      </p>
+
+      <p>
+        ${challenge}
+      </p>
+    `;
+  }
+}
+
+
+
 function renderWeek() {
-  let g = document.getElementById("weekGrid");
+  const g =
+    document.getElementById(
+      "weekGrid"
+    );
+
   g.innerHTML = "";
 
   days.forEach(x => {
-    let s = state[x.day] || "";
 
-    let c = document.createElement("div");
+    const s =
+      state[x.day] || "";
+
+    const c =
+      document.createElement(
+        "div"
+      );
+
     c.className = "card";
 
     c.innerHTML = `
-      <div class="day">${x.day}</div>
-      <span class="subject">${x.subject}</span>
-      <p><b>${x.title}</b></p>
-      <p>${x.duration || "15-20 min"}</p>
+      <div class="day">
+        ${x.day}
+      </div>
+
+      <span class="subject">
+        ${x.subject}
+      </span>
+
+      <p>
+        <b>${x.title}</b>
+      </p>
+
+      <p>
+        ${x.duration || "15-20 min"}
+      </p>
+
+      <div
+        id="activity-${x.day}">
+      </div>
 
       <div class="state">
+
         <button
-          class="done ${s === "done" ? "active" : ""}"
-          onclick="setStatus('${x.day}','done')">
+          onclick="tryAnother('${x.day}')">
+          🔄 Try Another
+        </button>
+
+        <button
+          onclick="challengeMe('${x.day}')">
+          ⬆ Challenge Me
+        </button>
+
+        <button
+          class="done
+          ${s === "done"
+            ? "active"
+            : ""}"
+          onclick="
+            setStatus(
+              '${x.day}',
+              'done'
+            )">
           ✓ Done
         </button>
 
         <button
-          class="practice ${s === "practice" ? "active" : ""}"
-          onclick="setStatus('${x.day}','practice')">
-          ↻ Needs practice
+          class="practice
+          ${s === "practice"
+            ? "active"
+            : ""}"
+          onclick="
+            setNeedsPractice(
+              '${x.day}'
+            )">
+          ↻ Needs Practice
         </button>
+
       </div>
     `;
 
     g.appendChild(c);
   });
+
+  days.forEach(x => {
+    showActivity(x.day);
+  });
 }
+
+
 
 function updateProgress() {
-
   const groups = {
-    English: ["Monday", "Wednesday"],
-    Maths: ["Tuesday", "Thursday"],
-    Science: ["Friday"]
+    English: [
+      "Monday",
+      "Wednesday"
+    ],
+
+    Maths: [
+      "Tuesday",
+      "Thursday"
+    ],
+
+    Science: [
+      "Friday"
+    ]
   };
 
-  Object.entries(groups).forEach(([k, a]) => {
+  Object.entries(groups)
+    .forEach(([k, a]) => {
 
-    let p = Math.round(
-      a.filter(d => state[d] === "done").length / a.length * 100
-    );
+      const done =
+        a.filter(
+          d =>
+            state[d] ===
+            "done"
+        ).length;
 
-    document.getElementById("p" + k).style.width = p + "%";
-    document.getElementById("p" + k + "Text").textContent = p + "%";
-  });
+      const p =
+        Math.round(
+          done /
+          a.length *
+          100
+        );
+
+      const bar =
+        document.getElementById(
+          "p" + k
+        );
+
+      const text =
+        document.getElementById(
+          "p" +
+          k +
+          "Text"
+        );
+
+      if (bar) {
+        bar.style.width =
+          p + "%";
+      }
+
+      if (text) {
+        text.textContent =
+          p + "%";
+      }
+    });
 }
 
-function renderQuiz() {
 
-  let w = document.getElementById("quizQuestions");
 
-  quiz.forEach((q, i) => {
+function buildAdaptiveQuiz() {
+  quiz = [];
 
-    let d = document.createElement("div");
-    d.className = "question";
+  if (
+    !weekData ||
+    !weekData.quizBank
+  ) {
+    return;
+  }
 
-    d.innerHTML = `
-      <b>${i + 1}. ${q[0]}</b>
-      <input id="q${i}">
-    `;
+  const bank =
+    weekData.quizBank;
 
-    w.appendChild(d);
-  });
-}
+  const weakSkills =
+    state.skillPractice || {};
 
-function markQuiz() {
+  const normalSkills = [
+    "phonics",
+    "reading",
+    "addition",
+    "subtraction",
+    "patterns",
+    "materials"
+  ];
 
-  let n = 0;
+  /*
+    Add one standard question
+    from each available skill.
+  */
 
-  quiz.forEach((q, i) => {
+  normalSkills.forEach(skill => {
 
     if (
-      document.getElementById("q" + i)
-        .value
-        .trim()
-        .toLowerCase() === q[1]
+      bank[skill] &&
+      bank[skill].length > 0
     ) {
-      n++;
+      const q =
+        bank[skill][0];
+
+      quiz.push([
+        q.question,
+        q.answer,
+        skill
+      ]);
     }
   });
 
-  let p = Math.round(n / quiz.length * 100);
 
-  document.getElementById("score").textContent =
-    `Score: ${n}/${quiz.length} (${p}%)`;
+  /*
+    Add extra questions for
+    skills marked Needs Practice.
+  */
 
-  state.Saturday = p >= 70 ? "done" : "practice";
+  Object.entries(
+    weakSkills
+  )
+    .filter(
+      ([skill, count]) =>
+        count > 0
+    )
+    .forEach(([skill]) => {
 
-  save();
+      if (!bank[skill]) {
+        return;
+      }
+
+      bank[skill]
+        .slice(1, 3)
+        .forEach(q => {
+
+          quiz.push([
+            q.question,
+            q.answer,
+            skill
+          ]);
+
+        });
+    });
+
+
+  /*
+    Keep review short.
+  */
+
+  quiz =
+    quiz.slice(0, 10);
 }
 
-document.querySelectorAll(".tabs button").forEach(b => {
 
-  b.onclick = () => {
 
-    document.querySelectorAll(".tabs button")
-      .forEach(x => x.classList.remove("active"));
+function renderQuiz() {
+  buildAdaptiveQuiz();
 
-    document.querySelectorAll(".view")
-      .forEach(x => x.classList.remove("active"));
+  const w =
+    document.getElementById(
+      "quizQuestions"
+    );
 
-    b.classList.add("active");
+  if (!w) {
+    return;
+  }
 
-    document.getElementById(b.dataset.view)
-      .classList.add("active");
-  };
-});
+  w.innerHTML = "";
 
-renderQuiz();
+  quiz.forEach(
+    (q, i) => {
+
+      const d =
+        document.createElement(
+          "div"
+        );
+
+      d.className =
+        "question";
+
+      d.innerHTML = `
+        <b>
+          ${i + 1}.
+          ${q[0]}
+        </b>
+
+        <input
+          id="q${i}"
+          autocomplete="off">
+      `;
+
+      w.appendChild(d);
+    }
+  );
+}
+
+
+
+function markQuiz() {
+  let correct = 0;
+
+  const skillScores = {};
+
+  quiz.forEach(
+    (q, i) => {
+
+      const input =
+        document.getElementById(
+          "q" + i
+        );
+
+      if (!input) {
+        return;
+      }
+
+      const userAnswer =
+        input.value
+          .trim()
+          .toLowerCase();
+
+      const correctAnswer =
+        String(q[1])
+          .trim()
+          .toLowerCase();
+
+      const skill =
+        q[2] || "general";
+
+      if (
+        !skillScores[skill]
+      ) {
+        skillScores[skill] = {
+          correct: 0,
+          total: 0
+        };
+      }
+
+      skillScores[
+        skill
+      ].total++;
+
+      if (
+        userAnswer ===
+        correctAnswer
+      ) {
+        correct++;
+
+        skillScores[
+          skill
+        ].correct++;
+      }
+    }
+  );
+
+
+  const p =
+    quiz.length > 0
+      ? Math.round(
+          correct /
+          quiz.length *
+          100
+        )
+      : 0;
+
+
+  const score =
+    document.getElementById(
+      "score"
+    );
+
+  if (score) {
+    score.textContent =
+      `Score: ${correct}/${quiz.length} (${p}%)`;
+  }
+
+
+  state.Saturday =
+    p >= 70
+      ? "done"
+      : "practice";
+
+
+  /*
+    Record weak quiz skills.
+  */
+
+  if (!state.skillPractice) {
+    state.skillPractice = {};
+  }
+
+
+  Object.entries(
+    skillScores
+  ).forEach(
+    ([skill, result]) => {
+
+      const skillPercent =
+        Math.round(
+          result.correct /
+          result.total *
+          100
+        );
+
+
+      if (
+        skillPercent < 70
+      ) {
+
+        state.skillPractice[
+          skill
+        ] =
+          (
+            state.skillPractice[
+              skill
+            ] || 0
+          ) + 1;
+
+      } else {
+
+        if (
+          state.skillPractice[
+            skill
+          ]
+        ) {
+          state.skillPractice[
+            skill
+          ] =
+            Math.max(
+              0,
+              state.skillPractice[
+                skill
+              ] - 1
+            );
+        }
+      }
+    }
+  );
+
+
+  state.lastQuizScore =
+    p;
+
+  state.lastQuizSkills =
+    skillScores;
+
+
+  localStorage.setItem(
+    "prepT3W5",
+    JSON.stringify(state)
+  );
+
+  renderWeek();
+  updateProgress();
+}
+
+
+
+document
+  .querySelectorAll(
+    ".tabs button"
+  )
+  .forEach(b => {
+
+    b.onclick = () => {
+
+      document
+        .querySelectorAll(
+          ".tabs button"
+        )
+        .forEach(
+          x =>
+            x.classList.remove(
+              "active"
+            )
+        );
+
+      document
+        .querySelectorAll(
+          ".view"
+        )
+        .forEach(
+          x =>
+            x.classList.remove(
+              "active"
+            )
+        );
+
+      b.classList.add(
+        "active"
+      );
+
+      document
+        .getElementById(
+          b.dataset.view
+        )
+        .classList.add(
+          "active"
+        );
+
+
+      /*
+        Rebuild Saturday quiz
+        whenever Quiz tab opens.
+      */
+
+      if (
+        b.dataset.view ===
+        "quiz"
+      ) {
+        renderQuiz();
+      }
+    };
+  });
+
+
+
 loadWeek();
-if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{})}
+
+
+
+if (
+  "serviceWorker"
+  in navigator
+) {
+  navigator.serviceWorker
+    .register("./sw.js")
+    .catch(() => {});
+}
 </script>
+
 </body>
 </html>
