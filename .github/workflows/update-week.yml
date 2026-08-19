@@ -1,0 +1,56 @@
+/name: Update Current Learning Week
+
+on:
+  schedule:
+    - cron: "10 7 * * 1"
+      timezone: "Australia/Melbourne"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-week:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Find highest available week
+        shell: bash
+        run: |
+          latest_week=$(find data -maxdepth 1 -name 'week-*.json' \
+            | sed -E 's/.*week-([0-9]+)\.json/\1/' \
+            | sort -n \
+            | tail -1)
+
+          if [ -z "$latest_week" ]; then
+            echo "No weekly files found."
+            exit 1
+          fi
+
+          padded_week=$(printf "%02d" "$latest_week")
+
+          echo "Activating week-$padded_week.json"
+
+          printf '{\n  "currentWeekFile": "week-%s.json"\n}\n' \
+            "$padded_week" \
+            > data/current-week.json
+
+      - name: Commit current week
+        shell: bash
+        run: |
+          git config user.name "Prep Learning Bot"
+          git config user.email "actions@users.noreply.github.com"
+
+          git add data/current-week.json
+
+          if git diff --cached --quiet; then
+            echo "Current week is already correct."
+            exit 0
+          fi
+
+          git commit -m "Automatically update current learning week"
+          git push
