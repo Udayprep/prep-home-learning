@@ -1,0 +1,37 @@
+{
+  "term": 3,
+  "week": 6,
+  "title": "Victorian Prep / Foundation Home Learning",
+  "days": {
+    "Monday": {
+      "subject": "English",
+      "title": "Blend CVC words and practise simple digraphs",
+      "duration": "15-20 min"
+    },
+    "Tuesday": {
+      "subject": "Mathematics",
+      "title": "Addition and subtraction within 10",
+      "duration": "15-20 min"
+    },
+    "Wednesday": {
+      "subject": "English",
+      "title": "Read and write a short sentence",
+      "duration": "15-20 min"
+    },
+    "Thursday": {
+      "subject": "Mathematics",
+      "title": "Number bonds and missing numbers",
+      "duration": "15-20 min"
+    },
+    "Friday": {
+      "subject": "Science",
+      "title": "Observe, compare and describe everyday materials",
+      "duration": "15-20 min"
+    },
+    "Saturday": {
+      "subject": "Review",
+      "title": "Week 6 learning check",
+      "duration": "15-20 min"
+    }
+  }
+}
