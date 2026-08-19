@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4f7cff">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon.svg">
+<title>Prep Home Learning</title>
+<style>
+:root{--bg:#f7f9fc;--card:#fff;--ink:#1f2a44;--muted:#6c7485;--brand:#4f7cff;--soft:#eef4ff;--line:#e6eaf2;--shadow:0 12px 30px rgba(43,65,110,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{max-width:1180px;margin:auto;padding:18px 16px 110px}
+.hero{display:flex;justify-content:space-between;gap:16px;align-items:center;background:linear-gradient(135deg,#edf3ff,#fff);border:1px solid var(--line);padding:22px;border-radius:24px;box-shadow:var(--shadow)}
+.hero h1{font-size:clamp(30px,5vw,48px);margin:5px 0}.hero p{margin:0;color:var(--muted)}
+.chip,.subject{display:inline-block;border-radius:999px;font-weight:800}.chip{background:var(--brand);color:#fff;padding:12px 16px}.subject{background:var(--soft);color:var(--brand);padding:7px 10px;font-size:13px}
+.tabs{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(96%,850px);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:#fffffff2;padding:8px;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.tabs button{border:0;background:transparent;padding:10px 4px;border-radius:14px;font-weight:800;color:var(--muted);font-size:13px}.tabs button.active{background:var(--soft);color:var(--brand)}
+.view{display:none;margin-top:20px}.view.active{display:block}.section-title{font-size:28px;margin:0 0 6px}.help{color:var(--muted);margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}.day{font-size:22px;font-weight:900}
+.state{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.state button,.mainbtn{min-height:48px;border-radius:14px;padding:11px 14px;font-weight:800;font-size:16px;cursor:pointer}
+.state button{background:#f6f7fa;border:1px solid var(--line);color:var(--muted)}.state .done.active{background:#e6f7ed;color:#17703b}.state .practice.active{background:#fff4df;color:#8d5b0f}
+.mainbtn{background:var(--brand);color:#fff;border:0}.today{display:grid;grid-template-columns:1.6fr .9fr;gap:18px}.activity li{margin:14px 0;line-height:1.5}
+.resource a{display:block;margin:12px 0;color:var(--brand);font-weight:800;text-decoration:none}.question{padding:14px 0;border-bottom:1px solid var(--line)}.question input{width:100%;margin-top:8px;padding:13px;border:1px solid var(--line);border-radius:12px;font-size:18px}
+.score{font-size:22px;font-weight:900;margin-top:16px}.progress{margin:18px 0}.ptop{display:flex;justify-content:space-between;font-weight:800}.bar{height:14px;background:#edf0f5;border-radius:999px;overflow:hidden;margin-top:8px}.fill{height:100%;background:var(--brand);width:0}
+@media(max-width:760px){.app{padding:12px 12px 108px}.hero{align-items:flex-start;flex-direction:column}.today{grid-template-columns:1fr}.tabs button{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero"><div><span class="subject">⭐ Prep / Foundation</span><h1>Home Learning</h1><p>Victorian Curriculum • 15–20 minutes a day</p></div><div class="chip">Term 3 • Week 5</div></header>
+
+<section id="week" class="view active"><h2 class="section-title">This week</h2><p class="help">Mark each activity Done or Needs practice.</p><div id="weekGrid" class="grid"></div></section>
+
+<section id="today" class="view"><h2 class="section-title">Today</h2><div class="today">
+<div class="card"><div class="day">Tuesday: Addition & Subtraction</div><span class="subject">Mathematics</span>
+<p><b>Goal:</b> understand addition as putting together and subtraction as taking away.</p>
+<ol class="activity">
+<li><b>3 min:</b> Put out 5 Lego blocks. Add 2. Ask “How many altogether?”</li>
+<li><b>5 min:</b> Solve 2+1, 3+2, 4+1 and 5+3 using counters or fingers.</li>
+<li><b>5 min:</b> Solve 4−1, 5−2, 6−3 and 8−2 by physically taking objects away.</li>
+<li><b>4 min:</b> Story: “5 ducks are swimming. 2 more arrive. How many now?” Then “8 cars are parked. 3 drive away. How many remain?”</li>
+<li><b>2 min:</b> Child explains one answer in their own words.</li>
+</ol></div>
+<div class="card resource"><div class="day">Resources</div>
+<a href="Prep_T3W5_Addition_Subtraction_Worksheet.docx">📄 Open maths worksheet</a>
+<a target="_blank" rel="noopener" href="https://www.abc.net.au/education/collections/understanding-numbers/106228946">▶ ABC Education: Understanding Numbers</a>
+<p>Tip: use real objects before expecting mental answers.</p></div></div></section>
+
+<section id="quiz" class="view"><h2 class="section-title">Saturday Quiz</h2><p class="help">Try independently first.</p><div class="card"><div id="quizQuestions"></div><button class="mainbtn" onclick="markQuiz()">Check answers</button><div id="score" class="score"></div></div></section>
+
+<section id="progress" class="view"><h2 class="section-title">Progress</h2><p class="help">Saved on this tablet/browser.</p><div class="card">
+<div class="progress"><div class="ptop"><span>English</span><span id="pEnglishText">0%</span></div><div class="bar"><div id="pEnglish" class="fill"></div></div></div>
+<div class="progress"><div class="ptop"><span>Mathematics</span><span id="pMathsText">0%</span></div><div class="bar"><div id="pMaths" class="fill"></div></div></div>
+<div class="progress"><div class="ptop"><span>Science</span><span id="pScienceText">0%</span></div><div class="bar"><div id="pScience" class="fill"></div></div></div>
+</div></section>
+
+<section id="files" class="view"><h2 class="section-title">Worksheets</h2><div class="grid">
+<div class="card resource"><div class="day">Week 5 full pack</div><p>All weekday activities plus Saturday review.</p><a href="Victorian_Prep_Term3_Week5_Home_Learning_Pack.docx">📄 Open Word pack</a></div>
+<div class="card resource"><div class="day">Addition & subtraction</div><p>Printable maths activity sheet.</p><a href="Prep_T3W5_Addition_Subtraction_Worksheet.docx">📄 Open worksheet</a></div>
+</div><div class="card" style="margin-top:16px"><div class="day">Add to Home Screen</div><p><b>iPad:</b> Safari → Share → Add to Home Screen.</p><p><b>Android:</b> Chrome → menu → Add to Home screen / Install app.</p></div></section>
+</div>
+
+<nav class="tabs"><button class="active" data-view="week">🏠<br>Week</button><button data-view="today">▶<br>Today</button><button data-view="quiz">🧠<br>Quiz</button><button data-view="progress">📈<br>Progress</button><button data-view="files">📄<br>Files</button></nav>
+
+<script>
+const days=[
+{day:"Monday",subject:"English",title:"Blend and segment CVC words",area:"English"},
+{day:"Tuesday",subject:"Mathematics",title:"Addition & subtraction within 10",area:"Maths"},
+{day:"Wednesday",subject:"English",title:"Read and build a simple sentence",area:"English"},
+{day:"Thursday",subject:"Mathematics",title:"Numbers to 20 & story problems",area:"Maths"},
+{day:"Friday",subject:"Science",title:"Material detectives",area:"Science"},
+{day:"Saturday",subject:"Review",title:"Weekly learning check",area:"Review"}];
+const quiz=[["Blend: s - u - n =","sun"],["Write the word dog =","dog"],["What number comes after 16?","17"],["What number comes before 14?","13"],["3 + 2 =","5"],["7 - 2 =","5"],["4 + 3 =","7"],["8 - 3 =","5"]];
+let state=JSON.parse(localStorage.getItem("prepT3W5")||"{}");
+function save(){localStorage.setItem("prepT3W5",JSON.stringify(state));renderWeek();updateProgress()}
+function setStatus(day,status){state[day]=status;save()}
+function renderWeek(){let g=document.getElementById("weekGrid");g.innerHTML="";days.forEach(x=>{let s=state[x.day]||"";let c=document.createElement("div");c.className="card";c.innerHTML=`<div class="day">${x.day}</div><span class="subject">${x.subject}</span><p><b>${x.title}</b></p><div class="state"><button class="done ${s==="done"?"active":""}" onclick="setStatus('${x.day}','done')">✓ Done</button><button class="practice ${s==="practice"?"active":""}" onclick="setStatus('${x.day}','practice')">↻ Needs practice</button></div>`;g.appendChild(c)})}
+function updateProgress(){const groups={English:["Monday","Wednesday"],Maths:["Tuesday","Thursday"],Science:["Friday"]};Object.entries(groups).forEach(([k,a])=>{let p=Math.round(a.filter(d=>state[d]==="done").length/a.length*100);document.getElementById("p"+k).style.width=p+"%";document.getElementById("p"+k+"Text").textContent=p+"%"})}
+function renderQuiz(){let w=document.getElementById("quizQuestions");quiz.forEach((q,i)=>{let d=document.createElement("div");d.className="question";d.innerHTML=`<b>${i+1}. ${q[0]}</b><input id="q${i}">`;w.appendChild(d)})}
+function markQuiz(){let n=0;quiz.forEach((q,i)=>{if(document.getElementById("q"+i).value.trim().toLowerCase()===q[1])n++});let p=Math.round(n/quiz.length*100);document.getElementById("score").textContent=`Score: ${n}/${quiz.length} (${p}%)`;state.Saturday=p>=70?"done":"practice";save()}
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.dataset.view).classList.add("active")});
+renderWeek();updateProgress();renderQuiz();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{})}
+</script>
+</body>
+</html>

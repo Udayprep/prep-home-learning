@@ -1,0 +1,15 @@
+{
+  "name": "Prep Home Learning",
+  "short_name": "Prep Learning",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f9fc",
+  "theme_color": "#4f7cff",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
