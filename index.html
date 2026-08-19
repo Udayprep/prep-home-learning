@@ -81,7 +81,15 @@ let state = JSON.parse(localStorage.getItem("prepT3W5") || "{}");
 
 async function loadWeek() {
   try {
-    const response = await fetch("./data/week-05.json");
+    const pointerResponse = await fetch("./data/current-week.json");
+
+if (!pointerResponse.ok) {
+  throw new Error("Unable to load current week pointer");
+}
+
+const pointer = await pointerResponse.json();
+
+const response = await fetch(`./data/${pointer.currentWeekFile}`);
 
     if (!response.ok) {
       throw new Error("Unable to load weekly data");
